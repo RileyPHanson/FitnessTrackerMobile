@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FitnessTracker</string>
+    <string name="title_map">Map</string>
+    <string name="title_activity_log">Activity Log</string>
+</resources>
