@@ -16,5 +16,10 @@
         android:name="com.example.fitnesstracker.ui.activity_log.ActivityLogFragment"
         android:label="@string/title_activity_log"
         tools:layout="@layout/fragment_activity_log" />
+    <fragment
+        android:id="@+id/navigation_weather"
+        android:name="com.example.fitnesstracker.ui.weather.WeatherFragment"
+        android:label="Current Weather"
+        tools:layout="@layout/fragment_weather" />
 
 </navigation>
