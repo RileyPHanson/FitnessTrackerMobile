@@ -42,9 +42,21 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_map, R.id.navigation_activity_log, R.id.navigation_weather))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        
+        /* Used for testing purposes
+        genDatabaseData(2)
+         */
 
 
     }
+    
+     /* used for testing purposes
+    private fun genDatabaseData(amount: Int) {
+        for (i in 1 .. amount) {
+            dbHelper.insertData("Test $i", "Test $i", "Test $i")
+        }
+    }
+    */
 
 
 
