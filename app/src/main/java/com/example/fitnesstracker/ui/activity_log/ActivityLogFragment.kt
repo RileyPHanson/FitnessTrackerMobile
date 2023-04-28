@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit
 
 
 class ActivityLogFragment : Fragment() {
+    private lateinit var thiscontext: Context
 
     private var _binding: FragmentActivityLogBinding? = null
     // This property is only valid between onCreateView and
@@ -99,14 +100,10 @@ class ActivityLogFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById<View>(com.example.fitnesstracker.R.id.recycler_view) as RecyclerView
 
-        // viewAdapter for the data
-        //Uncomment this and the genActivities func to gen test data
-        recyclerView.adapter = MyRecyclerAdapter(genActivities(20))
-
-
+        // Build the recyclerView from the database
+        recyclerView.adapter = MyRecyclerAdapter(createFromDb())
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
-
         // Divider
         val dividerItemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(dividerItemDecoration)
@@ -129,17 +126,18 @@ class ActivityLogFragment : Fragment() {
 
     }
 
-    // Generate Data (Used for testing purposes)
-    private fun genActivities(size: Int) : ArrayList<LoggedActivity>{
+    private fun createFromDb() : ArrayList<LoggedActivity>{
+        val dbHelper = ActivityDbHelper(thiscontext)
         val activities = ArrayList<LoggedActivity>()
-        for (i in 1..size) {
-            val person = LoggedActivity("Date: Test $i", "Time Elapsed: Test $i", "Distance: Test $i")
-            activities.add(person)
+        val cursor = dbHelper.viewAllData
+
+        while (cursor.moveToNext()){
+            val activity = LoggedActivity("Date: ${cursor.getString(1)}", " Time Elapsed: ${cursor.getString(2)}", "Distance: ${cursor.getString(3)}")
+            activities.add(activity)
         }
+
         return activities
     }
-
-
 
 
     override fun onDestroyView() {
